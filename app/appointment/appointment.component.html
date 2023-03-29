@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <table class="table table-border table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>#</th>
+                        <th>Kullanıcı Adı</th>
+                        <th>Gün</th>
+                        <th>Saat</th>
+                        <th>İşlem</th>
+                        <th>Ücret</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of appointments">
+                        <td>{{item.id}}</td>
+                        <td>{{item.username}}</td>
+                        <td>{{item.day}}</td>
+                        <td>{{item.interval}}</td>
+                        <td >{{item.process}}</td>
+                        <td>{{item.totalPrice}} ₺</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

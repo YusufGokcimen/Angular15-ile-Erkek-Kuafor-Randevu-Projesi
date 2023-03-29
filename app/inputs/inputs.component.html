@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-4">
+      <label><h5><span class="badge text-bg-danger rounded-pill mb-2">Adınızı giriniz</span></h5></label>
+      <input type="text" class="form-control mb-3" placeholder="Kullanıcı Adı" [(ngModel)]="userName" required="">
+      <label><h5><span class="badge text-bg-danger rounded-pill mb-2">Gün seçiniz</span></h5></label>
+      <select class="form-control mb-3" #dayVal (change)="getIntervals(dayVal.value)">
+        <option value={{item.id}} *ngFor="let item of getDayList()">{{item.name}}</option>
+      </select>
+      <label><h5><span class="badge text-bg-danger rounded-pill mb-2">Saat seçiniz</span></h5></label>
+      <select class="form-control mb-3" #intervalVal>
+        <option value={{interval}} *ngFor="let interval of getIntervals(dayVal.value)">{{interval}}</option>
+      </select>
+
+
+      <div class="mb-3" >
+        <div class="input-group-text" style="width: 100%; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2), 
+        0px 5px 10px rgba(0, 0, 0, 0.15), 
+        0px 10px 20px rgba(0, 0, 0, 0.1), 
+        0px 15px 30px rgba(0, 0, 0, 0.05);" *ngFor="let item of checkboxesDataList" id="hover">
+          <div class="col-10">
+            <input class="form-check-input float-start" style="margin-top: 15px; margin-right: 20px;" type="checkbox" [(ngModel)]="item.isChecked"
+              [disabled]="closed" (change)="changeSelection()">
+              <p class="float-start" style="margin-top: 10px;">{{item.label}}</p>
+          </div>
+          <div class="col-2">
+            <span class="mb-0 badge text-bg-danger">{{item.price}} ₺</span>
+          </div>
+        </div>
+      </div>
+
+
+
+      <h1 class="text-center"><span class="text-center badge text-bg-primary rounded-pill mb-2 p-4">Toplam Ücret : {{totalPrice}} ₺</span></h1>
+
+      <div [ngSwitch]="sunday(dayVal.value)">
+        <button class="btn btn-danger form-control" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2), 
+        0px 5px 10px rgba(0, 0, 0, 0.15), 
+        0px 10px 20px rgba(0, 0, 0, 0.1), 
+        0px 15px 30px rgba(0, 0, 0, 0.05);
+        " (click)="takeappointment(dayVal.value,intervalVal.value)"
+          *ngSwitchCase="true"><h3>Randevu Al</h3></button>
+      </div>
+
+    
+
+
+  </div>
+  <div class="col-8 mt-3">
+    <table class="table table-border table-hover">
+      <thead>
+          <tr class="text-center">
+              <th>#</th>
+              <th>Kullanıcı Adı</th>
+              <th>Gün</th>
+              <th>Saat</th>
+              <th>İşlem</th>
+              <th>Ücret</th>
+              <th>Randevuyu Sil</th>
+          </tr>
+      </thead>
+      <tbody class="text-center fs-5">
+          <tr *ngFor="let item of inputAppoints">
+              <td>{{item.id}}</td>
+              <td>{{item.username}}</td>
+              <td>{{item.day}}</td>
+              <td>{{item.interval}}</td>
+              <td >{{item.process}}</td>
+              <td>{{item.totalPrice}} ₺</td>
+              <td><button class="btn btn-danger btn-sm" (click)="deleteAppointment(item.id)"> Randevuyu Sil</button></td>
+          </tr>
+      </tbody>
+  </table>
+  </div>
+</div>
